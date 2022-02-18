@@ -113,7 +113,9 @@ export default function Landing(){
                        <p><span>Are you looking for your next fit?</span> 
                           We provide digital access to all our collections.</p>
 
-                        <button>Take me there</button>
+                        <button  onClick={()=>{
+                            window.location.replace('/products')
+                        }}>Take me there</button>
                     </div>
                     <div className="images">
                         <img src={LeftPhones} alt='' />

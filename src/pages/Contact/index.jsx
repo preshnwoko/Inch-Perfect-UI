@@ -2,13 +2,33 @@ import { Link } from "react-router-dom";
 import Logo from "../../assets/svg/logo";
 import Leftbg from '../../assets/png/leftbg.png'
 import Footer from "../Landing/footer";
-import Bottombg from '../../assets/png/bottombg.png'
+// import Bottombg from '../../assets/png/bottombg.png'
 import '../Landing/index.scss'
 import './index.scss'
 import Pic from './picture.png'
+import {useState} from 'react'
+import axios from 'axios'
+import {test} from '../../config/config.json'
+
 
 
 export default function Contact(){
+    const url=test;
+    const [mail,setMail]=useState({})
+    const contactUs= async(body)=>{
+        try {
+            const {data,status}= await axios.post(`${url}user/contact-us`, JSON.stringify(body),{
+                headers:{
+                    "content-type": "application/json"
+                }
+            }
+            )
+            console.log(data,status);
+            window.location.reload()
+               } catch (error) {
+            console.log(error.response.data.error)
+        }
+    }
     return(
         <div className="landing contact">
         <div className="top">
@@ -77,18 +97,25 @@ export default function Contact(){
                   </div>
 
                   <svg className="svg" style={{margin:'0 16px'}} xmlns="http://www.w3.org/2000/svg" width="16" height="158" viewBox="0 0 16 158" fill="none">
-<line opacity="0.3" x1="7.5" y1="158" x2="7.5" y2="110" stroke="white"/>
-<line opacity="0.3" x1="7.5" y1="48" x2="7.5" stroke="white"/>
-<path d="M2.86 82.45C2.86 84.41 4.45 86 6.41 86C8.37 86 9.96 84.41 9.96 82.45C9.96 80.5 8.37 78.91 6.41 78.91C4.45 78.91 2.86 80.5 2.86 82.45ZM9.23 82.45C9.23 84 7.96 85.26 6.41 85.26C4.86 85.26 3.6 84 3.6 82.45C3.6 80.9 4.86 79.64 6.41 79.64C7.96 79.64 9.23 80.9 9.23 82.45ZM6.8 74.8794C6.8 73.7994 5.91 72.9194 4.82 72.9194C3.74 72.9194 2.85 73.7994 2.85 74.8794L2.85 77.7094H10V76.9594H6.97L10 73.5594V72.4494L6.8 76.0594V74.8794ZM3.6 76.9594L3.6 74.8794C3.6 74.2094 4.15 73.6594 4.82 73.6594C5.5 73.6594 6.05 74.2094 6.05 74.8794V76.9594H3.6Z" fill="white"/>
-</svg>
+                      <line opacity="0.3" x1="7.5" y1="158" x2="7.5" y2="110" stroke="white"/>
+                       <line opacity="0.3" x1="7.5" y1="48" x2="7.5" stroke="white"/>
+                       <path d="M2.86 82.45C2.86 84.41 4.45 86 6.41 86C8.37 86 9.96 84.41 9.96 82.45C9.96 80.5 8.37 78.91 6.41 78.91C4.45 78.91 2.86 80.5 2.86 82.45ZM9.23 82.45C9.23 84 7.96 85.26 6.41 85.26C4.86 85.26 3.6 84 3.6 82.45C3.6 80.9 4.86 79.64 6.41 79.64C7.96 79.64 9.23 80.9 9.23 82.45ZM6.8 74.8794C6.8 73.7994 5.91 72.9194 4.82 72.9194C3.74 72.9194 2.85 73.7994 2.85 74.8794L2.85 77.7094H10V76.9594H6.97L10 73.5594V72.4494L6.8 76.0594V74.8794ZM3.6 76.9594L3.6 74.8794C3.6 74.2094 4.15 73.6594 4.82 73.6594C5.5 73.6594 6.05 74.2094 6.05 74.8794V76.9594H3.6Z" fill="white"/>
+                    </svg>
                   <div className="right">
                       <h2>
                           send us a message
                       </h2>
-                      <form action="">
-                          <input type="text" placeholder="Name" />
-                          <input type="text" placeholder="Email" />
-                          <input type="text" placeholder="Message" />
+                      <form action="" onSubmit={(e)=>{
+                          console.log('hi');
+                          e.preventDefault()
+                          if(mail.fullName && mail.message && mail.email){
+                            console.log('mail');  
+                            contactUs(mail)}
+
+                      }}>
+                          <input type="text" placeholder="Name" name="fullName" onChange={(e)=>setMail({...mail,[e.target.name]:e.target.value})} />
+                          <input type="text" placeholder="Email" name='email' onChange={(e)=>setMail({...mail,[e.target.name]:e.target.value})}/>
+                          <input type="text" placeholder="Message" name="message" onChange={(e)=>setMail({...mail,[e.target.name]:e.target.value})}/>
                           <button>Send message</button>
                       </form>
                   </div>

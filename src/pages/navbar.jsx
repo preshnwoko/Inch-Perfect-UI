@@ -45,7 +45,7 @@ const {userCurrency,setUserCurrency}=useContext(PrefferedCurrency)
     return(
         <div className={`navbar ${nav}`}>
             <div className='navbarLeft'>
-                <Link to='/' className="img">
+                <Link to='/products' className="img">
                     <Logo />
                 </Link>
                 <div className='search'>
