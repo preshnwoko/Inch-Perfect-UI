@@ -102,7 +102,9 @@
         letter-spacing: 0em;
         text-align: left;
 
-
+     select{
+       display: none !important;
+     }
 
       p{
           width:100%;
@@ -171,7 +173,7 @@
   justify-content:space-around;
   .navbarLeft {
     display: flex;
-    flex-basis: 65%;
+    flex-basis: 50%;
     margin-left:10px;
     justify-content:space-around;
     .img {
@@ -239,11 +241,22 @@
       }
     }
   }
+  .currency{
+
+    select{
+      color: var(--white-bg);
+      background-color: var(--blur-bg);
+      padding: 6px;
+    }
+     select + div{
+       display: none;
+     }
+  }
   .navbarRight {
     margin-left: auto;
     display: flex;
     align-items: center;
-    padding-right: 40px;
+    padding-right: 25px;
     justify-content:space-around;
     .svg {
       display: flex;

@@ -67,11 +67,11 @@ const {userCurrency,setUserCurrency}=useContext(PrefferedCurrency)
             </div>
             <div className="navbarRight">
             <div class='currency'>
-                  {/* <select onChange={(e)=>setUserCurrency(e.target.value)} class='country'>
+                  <select onChange={(e)=>setUserCurrency(e.target.value)} class='country'>
                       <option hidden selected disabled value="">{userCurrency}</option>
                       <option class='flag' value="NGN"> NGN</option>
                       <option class='flag' value="USD"> USD</option>
-                  </select> */}
+                  </select>
                   <div class='country'>
                       <div id='NGN' onClick={(e)=>setUserCurrency(e.target.id)} class='flag'><Nigeria /> NGN</div>
                       <div style={{marginLeft:'8px'}} id='USD' onClick={(e)=>setUserCurrency(e.target.id)} class='flag'><America /> USD</div>
