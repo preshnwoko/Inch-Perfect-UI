@@ -72,8 +72,8 @@ export default function Landing(){
                         more <span>affordable</span>
                     </h1>
                     <p>
-                    Sit in habitasse viverra adipiscing. Tempus, leo at duis a morbi sed tellus libero. Sapien gravida bibendum neque vitae donec. Fermentum lobortis sed.
-                    </p>
+                      We are not just best  in styles and designs, we deliver best quality and timeless pieces to over 200 countries around the globe
+                      </p>
                 </div>
 
                 <div className="get_started">
