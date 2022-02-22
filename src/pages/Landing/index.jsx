@@ -53,7 +53,8 @@ export default function Landing(){
                     <div className="write_up">
                         <h1>The <span>classy</span> woman’s store</h1>
                         <p>
-                        Vestibulum, sagittis, maecenas ipsum fringilla arcu. Sem eu et velit, ullamcorper odio ullamcorper sagittis felis pharetra. Scelerisque pulvinar dolor arcu massa eget a.
+                                        Regardless the outfit,the event,the special moment,that anniversary,let's complete the missing inch in your outfit with our quality styles and designs,
+                                        shop now from our store!!
                         </p>
                     </div>
                     <div className="bottom_Img">

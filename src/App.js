@@ -24,6 +24,7 @@ import Order from './pages/ADMIN/Order';
 import Reset from './pages/registration/components/reset';
 import Landing from './pages/Landing';
 import Contact from './pages/Contact';
+import EditCat from './pages/ADMIN/category';
 function App() {
 
 const [products,setProducts]=useState([])
@@ -37,6 +38,9 @@ const [userCurrency,setUserCurrency]=useState('USD')
       <Switch>
           <Route exact path="/auth">
             <Registration />
+          </Route>
+          <Route exact path="/edit_category">
+            <EditCat />
           </Route>
           <Route path='/successfulVerification'>
             <VerificationSuccessful />
