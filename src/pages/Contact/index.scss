@@ -9,10 +9,7 @@
 
 
 @include responsive(desktop){.contact{
-    .main{
-        // height: 90%;
-    }
-
+  
     .small_screen_pic{
         display: none;
     }
@@ -232,6 +229,7 @@ text-align: left;
 
                 input{
                     width: 100%;
+                    color: white;
                     padding: 16px;
                     height: 38px;
                     background-color: rgba(255,255,255,0.2);

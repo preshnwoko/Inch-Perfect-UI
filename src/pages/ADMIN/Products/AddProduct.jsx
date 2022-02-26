@@ -81,6 +81,7 @@ export default function AddProduct() {
     })
     console.log(formData);
     console.log(status, data);
+    window.location.reload();
    }
        catch (error) {
            console.log(error.response)

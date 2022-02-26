@@ -37,7 +37,8 @@ export default function EditCat(){
 }  
   }
     const catList=()=>axios.get(`${url}products/categories`,{headers:headers}).then(response=>{
-        console.log(response.data.categories)
+        // console.log(response.data.categories)
+        
         setCats(response.data.categories)})
 
         useEffect(()=>catList(),[url])

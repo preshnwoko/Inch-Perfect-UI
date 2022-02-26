@@ -184,9 +184,7 @@ console.log(order)
                                 <div className="buy" onClick={()=>deleteProd()} >
                                      Delete
                                 </div>
-                                <div className="bag"  >
-                                    Edit details
-                                </div>
+                                
                                 <Link to='/checkout' ref={checkout} style={{display:'none'}}/>
                             </div>
                         </div>
