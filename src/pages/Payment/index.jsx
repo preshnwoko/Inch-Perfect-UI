@@ -24,9 +24,7 @@ export default function Payment() {
   const paystack = new PaystackPop();
     const {TakeOrder}=Order()
     const [fee,setFee]=useState(0)
-    const state=localStorage.getItem('state')
-    const town =localStorage.getItem('town')
-    const country=localStorage.getItem('country')
+    
     const [currency,setCurrency]=useState('USD')
     const[priceUsd,setPriceUsd]=useState(0)
      const [priceNgn,setPriceNgn]=useState(0)
@@ -289,9 +287,15 @@ export default function Payment() {
                     <span>street</span>
                     <textarea  id="" cols="30" rows="10" name='street' onChange={(e)=>setLocationParams({...locationParams,[e.target.name]:e.target.value})}></textarea>
                 </label>
+                <button class={`next-button ${nextNone}`} onClick={()=>{
+                          setDetNone('none')
+                          setPayNone('')
+                          setRegistered(!registered)
+                        }}>Next</button>
             </form>
             <div class='total'><span>fee:</span>{currency==='USD'?`$${fee}`:`N${fee}`}<span>Total:</span>{currency==='USD'?`$${cost}`:`N${cost}`}</div>
 
+          
     </div>
 }
 
