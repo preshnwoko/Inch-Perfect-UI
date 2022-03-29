@@ -2,7 +2,7 @@ import useAxios from "axios-hooks"
 import {useState,useEffect} from 'react'
 import axios from 'axios'
 import {test} from '../config/config.json'
-import {Redirect} from 'react-router-dom'
+// import {useNavigate} from 'react-router-dom'
 const useLogin = () =>{
     const [redirect,setRedirect]=useState(false)
     const url =test;
@@ -25,6 +25,7 @@ const useLogin = () =>{
             });
                 console.log(data)
                 setLoginObject(false)
+                
                 setRedirect(true)
                 localStorage.setItem('first_name',data.first_name)
                 localStorage.setItem('last_name',data.last_name)
@@ -35,6 +36,7 @@ const useLogin = () =>{
                 localStorage.setItem('country',data.country)
                 localStorage.setItem('town',data.town)
                 localStorage.setItem('email',data.email)
+                localStorage.setItem('phone_number',data.phone_number)
 
 
         } catch (error) {

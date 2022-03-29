@@ -17,14 +17,15 @@ export default function Order() {
   }
 
 
-     const TakeOrder=async (product,method,reference,currency)=>{
+     const TakeOrder=async (product,method,reference,currency,location)=>{
         // setLoginObject(true)
          try {
             const { status, data }= await axios.post(`${url}orders/create_order`, JSON.stringify({
                 product:product,
                 method:method,
                 referrence:reference,
-                currency:currency
+                currency:currency,
+                ...location
             }), {
                 headers: {
                     "Authorization":`Bearer ${localStorage.getItem("inchToken")}`,

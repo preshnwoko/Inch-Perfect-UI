@@ -16,7 +16,46 @@
     height:90vh;
     overflow-y:scroll;
        
-   
+   .none_reg{
+       width: 80%;
+       margin: auto;
+       display: flex;
+       flex-direction: column;
+       padding: 24px;
+       box-sizing: border-box;
+       span{
+        text-transform: capitalize;
+        font-weight: bold;
+        margin-bottom: 12px;
+    }
+       textarea{
+           width: 100%;
+           height: 80px;
+           padding: 10px;
+           border-radius: 16px;
+       }
+       div{
+           width: 100%;
+           margin: 8px 0;
+           display: flex;
+           justify-content: space-between;
+
+           label{
+               width: 49%;
+               display: flex;
+               flex-direction: column;
+               
+               input{
+                   height: 40px;
+                   background-color: none;
+                   outline: none;
+                   border-radius: 16px;
+                   padding: 10px;
+                   box-sizing: border-box;
+               }
+           }
+       }
+   }
 
          .delivery_details{
             width:100%;

@@ -30,16 +30,27 @@ export default function Payment() {
     const [currency,setCurrency]=useState('USD')
     const[priceUsd,setPriceUsd]=useState(0)
      const [priceNgn,setPriceNgn]=useState(0)
-     const authLink=useRef(null)
+     const [locationParams,setLocationParams]=useState({
+        first_name:localStorage.getItem('first_name'),
+        last_name:localStorage.getItem('first_name'),
+        country:localStorage.getItem('country'),
+        state:localStorage.getItem('state'),
+        town:localStorage.getItem('town'),
+        street:localStorage.getItem('street'),
+        phone_number:localStorage.getItem('phone_number'),
+        postal_code:localStorage.getItem('code'),
+        email:localStorage.getItem('email')
+     })
     const lagos=/lagos/i
     const region =/island|lekki|vgc|ajah|ikoyi|bannana/i
     const nigeria=/nigeria/i
     const USA=/usa|canada|uk/i
-    // console.log(lagos.test('Lagos'))
+    
    useEffect(()=>{
-       if(nigeria.test(country)){
-          if(lagos.test(state)){
-              if(region.test(town)){
+    
+       if(nigeria.test(locationParams.country)){
+          if(lagos.test(locationParams.state)){
+              if(region.test(locationParams.town)){
                setFee(2500)
            }
            else{
@@ -50,7 +61,7 @@ export default function Payment() {
            setFee(3500)
        }
        }
-       else if(USA.test(country)){
+       else if(USA.test(locationParams.country)){
             setCurrency('USD')
             if(order.length<4){
                 setFee(50)
@@ -68,22 +79,20 @@ export default function Payment() {
                 setFee(110)
             }
        }
-   },[country])
+   },[locationParams])
 
 
 
 
    const [cost,setCost]=useState(priceUsd )
-
+  const [registered,setRegistered]=useState(false)
   const token=localStorage.getItem('inchToken')
-  useEffect(()=>{
-    console.log(token,'hi')
-      if(!token){authLink.current.click()
-  ;
-}
-      else return
-  },[])
+   useEffect(()=>token?setRegistered(true):setRegistered(false),[token])
+
+
   const initiateTransaction = () => {
+   
+   
      if(cost>0){
     paystack.newTransaction({
       amount: (cost+ fee)*100,
@@ -91,12 +100,15 @@ export default function Payment() {
       key: testkey,
       currency:currency,
       name: localStorage.getItem('first_name'),
-      onCancel: () => window.alert("oh, dear u canceled"),
+      onCancel: (e) => {
+          window.alert("oh, dear u canceled")
+          
+        },
       onSuccess:  (e) => {
         //   setOrder({...order,reference:e.reference})
-       TakeOrder(items,'automatic',e.reference,currency)
+       TakeOrder(items,'automatic',e.reference,currency,locationParams)
             paidRef.current.click()
-             console.log(e.reference)
+            
         
       },
     });
@@ -106,8 +118,9 @@ export default function Payment() {
  const paidRef=React.useRef(null)
 
   const manualOrder=()=>{
+    console.log(locationParams);
      if(cost>0) {payRef.current.click()}
-      TakeOrder(items,'MANUAL','',currency)}
+      TakeOrder(items,'MANUAL','',currency,locationParams)}
     useEffect(()=>{
         currency==='USD'?setCost(priceUsd):setCost(priceNgn)
     },[currency])
@@ -135,7 +148,7 @@ export default function Payment() {
 
            const unit=selected.map(item=>{return item.unit})
            const prices=selected.map(item=>{return item.price_ngn})
-           console.log(unit,prices);
+           
            let sum=0;
            let ngnSum=0;
         for (let index = 0; index < selected.length; index++) {
@@ -157,7 +170,7 @@ export default function Payment() {
       const [nextNone,setNextNone]=React.useState('')
       const [agree,setAgree]=React.useState(false)
        const [transactionType,setTransactionType]=React.useState(1)
-      console.log(getCountry==='null');
+    
       const homeRef=React.useRef(null) 
     const flags = document.querySelectorAll('.flag')
     const transType =document.querySelectorAll('.platform')
@@ -165,18 +178,23 @@ export default function Payment() {
         selector.forEach(currency => {   
             if (e === currency) {
                 currency.classList.add('focused-flag')
-                console.log(currency.classList)
+                
             }
             else currency.classList.remove('focused-flag')
 
         })
         }
-
+        // useEffect(()=>{
+        //     for(const key in locationParams ){
+        //         console.log(key,locationParams[key])
+        //  }
+        // },[locationParams])
+        
       return (
         <Products >
             <div class='payment'>
-                <Link to='/auth' ref={authLink} style={{display:'none'}}></Link>
-            <div class='payment_details'>
+                
+           <div class='payment_details'>
                  <div class='heading'>
                  <Link ref={homeRef} style={{display:'none'}} to='/'></Link>
                    <div class='fat_block'></div>
@@ -184,7 +202,7 @@ export default function Payment() {
                    <div class='long_block'></div>
                 </div>
                 <div class='body'>
-                  {location &&<div class={`address ${detNone}`}>
+           {registered &&   <>  {  location &&<div class={`address ${detNone}`}>
                          <div style={{display:display}} class='heading'>
                              <span class='d_a'>Delivery Address</span>
                              <span class='a_d_a' onClick={()=>{
@@ -203,8 +221,8 @@ export default function Payment() {
 
                         <div class='total'><span>fee:</span>{currency==='USD'?`$${fee}`:`N${fee}`}<span>Total:</span>{currency==='USD'?`$${cost}`:`N${cost}`}</div>
 
-                    </div>
-                    }
+                    </div>}
+                    
                     {
                         !location && <div class='address'>
                            <div style={{display:display}} class='heading'>
@@ -222,7 +240,60 @@ export default function Payment() {
                         </div>
                         </div>
                     }
+                    </>
+}
+{
+    !registered && <div className="address">
+        <form className="none_reg">
+                <div>
+                   <label htmlFor="">
+                       <span>First Name</span>
+                       <input type="text" name='first_name' onChange={(e)=>setLocationParams({...locationParams,[e.target.name]:e.target.value})} />
+                   </label>
+                   <label htmlFor="">
+                   <span>Last Name</span>
+                       <input type="text"  name='last_name' onChange={(e)=>setLocationParams({...locationParams,[e.target.name]:e.target.value})} />
+                   </label>
+                </div>
+                <div>
+                   <label htmlFor="">
+                      <span>Email</span>
+                       <input type="text"  name='email' onChange={(e)=>setLocationParams({...locationParams,[e.target.name]:e.target.value})} />
+                   </label>
+                   <label htmlFor="">
+                      <span>Phone Number</span>
+                       <input type="tel"  name='phone_number' onChange={(e)=>setLocationParams({...locationParams,[e.target.name]:e.target.value})}/>
+                   </label>
+                </div>
+                <div>
+                   <label htmlFor="">
+                      <span>State</span>
+                       <input type="text"  name='state' onChange={(e)=>setLocationParams({...locationParams,[e.target.name]:e.target.value})} />
+                   </label>
+                   <label htmlFor="">
+                       <span>country</span>
+                       <input type="text"  name='country' onChange={(e)=>setLocationParams({...locationParams,[e.target.name]:e.target.value})}/>
+                   </label>
+                </div>
+                <div>
+                   <label htmlFor="">
+                       <span>Postal Code</span>
+                       <input type="text"  name='postal_code' onChange={(e)=>setLocationParams({...locationParams,[e.target.name]:e.target.value})} />
+                   </label>
+                   <label htmlFor="">
+                        <span>town</span>
+                       <input type="text"  name='town' onChange={(e)=>setLocationParams({...locationParams,[e.target.name]:e.target.value})}/>
+                   </label>
+                </div>
+                <label htmlFor="">
+                    <span>street</span>
+                    <textarea  id="" cols="30" rows="10" name='street' onChange={(e)=>setLocationParams({...locationParams,[e.target.name]:e.target.value})}></textarea>
+                </label>
+            </form>
+            <div class='total'><span>fee:</span>{currency==='USD'?`$${fee}`:`N${fee}`}<span>Total:</span>{currency==='USD'?`$${cost}`:`N${cost}`}</div>
 
+    </div>
+}
 
 
                     <div class={`payment_option ${payNone}`}>
@@ -250,20 +321,27 @@ export default function Payment() {
                         </div>
                         <button onClick={()=>{
                              if(agree)
-                            {transactionType===1?initiateTransaction():manualOrder()}}}>Pay now</button>
+                            {
+                                if(registered||locationParams){
+                                    transactionType===1?initiateTransaction():manualOrder()
+                                    }
+                                }
+                                    }}>Pay now</button>
                         <Link style={{display:'none'}} ref={payRef} to='/checkout/pay'/>
                         <Link style={{display:'none'}} ref={paidRef} to='/checkout/paid'/>
 
                     </div>                
                 </div>
             </div>
+          
+
            <div class='selected_items'>
               <p>You’re about to purchase these items</p>
               <div class='items'>{
                         items && items.map(item=>{
                                     // let image=JSON.parse(item.product_image)
                                     const image=item.product_image;
-                                    // console.log();
+                                    
                                  return <div className="product">
                                  <div class='top_details'>{item.unit} {item.unit>1?'peices':'peice'}</div>
                               {image && <img src={JSON.parse(image)[0]} alt="" />}
@@ -275,14 +353,7 @@ export default function Payment() {
                                         <span>
                                             ${item.price_usd}
                                         </span>
-                                        {/* {
-                                            !cart.includes(data) && <div onClick={()=>{
-                                                dispatch(addToCart(data))
-                                                // console.log(image[0]);
-                                            }} className="addProduct">
-                                                <Add />
-                                            </div>
-                                        } */}
+                                       
                                     </div>
                                 </div>
                             </div>

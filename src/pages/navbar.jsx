@@ -30,11 +30,11 @@ const {userCurrency,setUserCurrency}=useContext(PrefferedCurrency)
        
      React.useEffect((e)=>{
        currency.forEach(currency=>{
-           console.log(currency,userCurrency);
+           
  
            if (userCurrency===currency.id){
                currency.classList.add('focused-flag')
-               console.log(currency.classList)
+               
                }
                else currency.classList.remove('focused-flag')
            

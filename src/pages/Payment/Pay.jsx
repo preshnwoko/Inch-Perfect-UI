@@ -24,6 +24,7 @@ const Pay = () => {
      React.useEffect(()=>
      [cart,cart])
      const [done,setDone]=useState(false)
+     const[orderId,setOrderId]=useState(localStorage.getItem('orderId'))
     return(
         <div className='pay containerr '>
         <div class='nav'><NavBar nav='navbar2' display='none' /></div>
@@ -79,7 +80,7 @@ const Pay = () => {
                             </div>
                             <div style={{marginTop:'24px'}}>
                                <label>Order number</label>
-                               <input readOnly={true} type='number' value={localStorage.getItem('orderId')} />
+                               <input readOnly={true} type='number' value={orderId} />
                             </div>
                             <div style={{marginTop:'24px'}}>
                            <label>Bank details</label>
