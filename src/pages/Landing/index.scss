@@ -350,6 +350,16 @@ letter-spacing: 0.04em;
 text-align: left;
 color: rgba(13,13,13,0.8);
                 }
+                button{
+                    background-color: inherit;
+                     border: 1px solid rgba(13,13,13,0.8);
+                     color: rgb(13,13,13);
+                     height: 40px;
+                     width: 150px;
+                     margin: 24px;
+                     margin-left: 0;
+ 
+                 }
             }
         }
 
@@ -385,15 +395,7 @@ letter-spacing: 0em;
                     color: rgba(13,13,13,0.8);
                     
                 }
-                button{
-                   background-color: inherit;
-                    border: 1px solid rgba(13,13,13,0.8);
-                    color: rgb(13,13,13);
-                    height: 40px;
-                    width: 150px;
-                    margin: 24px;
-
-                }
+              
             }
             .images{
             width: 90%;
@@ -440,12 +442,13 @@ color: rgba(255,255,255,0.8);
             }
 
             .socials{
-                width: 60%;
+                width: 30%;
                 display: flex;
-                justify-content: space-around;
+                justify-content: space-between;
                 align-items: center;
                 margin: auto;
                 margin-top: 24px;
+                margin-left: 0;
 
                 svg{
                     padding: 2px;

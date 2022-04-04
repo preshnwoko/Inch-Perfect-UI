@@ -106,23 +106,12 @@ export default function Landing(){
                       <p>Inch perfect is a contemporary, African inspired, Best-spoke and ready to wear brand. </p>
                       <p>Rooted in providing well made pieces that speak style, comfort, elegance, confidence and a play on balance between modest outfits and modern fashion.</p>
                       <p> The idea Inch Woman is classy.</p>
-                    </div>
-                </div>
-                <div className="this_store">
-                    <div class='write_up'>
-                       <h1>This store</h1>
-                       <p><span>Are you looking for your next fit?</span> 
-                          We provide digital access to all our collections.</p>
-
-                        <button  onClick={()=>{
+                      <button  onClick={()=>{
                             window.location.replace('/products')
                         }}>Take me there</button>
                     </div>
-                    <div className="images">
-                        <img src={LeftPhones} alt='' />
-                        <img src={RightPhones} alt='' />
-                    </div>
                 </div>
+              
                 <div className="numbers">
 
                     <img src={Cats} alt="" />

@@ -36,12 +36,12 @@ export default function Footer(){
             </div>
         </div>
         <div className="links">
-             <p>MENU</p>
+             
              <div class='Links'>
              <div className="left_links">
                      <Link to='/'>Home</Link>
                      <a href='#'>About us</a>
-                     <a href='#the_store'>The store</a>
+                     <Link to='/products'>The store</Link>
                  </div>
              <div className="right_links">
                      <Link to='contact-us'>Contact us<span>{arrow}</span></Link>

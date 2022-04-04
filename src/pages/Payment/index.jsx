@@ -105,9 +105,7 @@ export default function Payment() {
       onSuccess:  (e) => {
         //   setOrder({...order,reference:e.reference})
        TakeOrder(items,'automatic',e.reference,currency,locationParams)
-            paidRef.current.click()
-            
-        
+            paidRef.current.click()        
       },
     });
 }
@@ -327,6 +325,7 @@ export default function Payment() {
                              if(agree)
                             {
                                 if(registered||locationParams){
+                                    console.log(transactionType)
                                     transactionType===1?initiateTransaction():manualOrder()
                                     }
                                 }
