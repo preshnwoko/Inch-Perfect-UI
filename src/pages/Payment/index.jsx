@@ -27,8 +27,9 @@ export default function Payment() {
     
     const [currency,setCurrency]=useState('USD')
     const[priceUsd,setPriceUsd]=useState(0)
-     const [priceNgn,setPriceNgn]=useState(0)
-     const [locationParams,setLocationParams]=useState({
+    const [priceNgn,setPriceNgn]=useState(0)
+    const [locationParams,setLocationParams]=useState(
+        {
         first_name:localStorage.getItem('first_name'),
         last_name:localStorage.getItem('first_name'),
         country:localStorage.getItem('country'),
@@ -38,15 +39,25 @@ export default function Payment() {
         phone_number:localStorage.getItem('phone_number'),
         postal_code:localStorage.getItem('code'),
         email:localStorage.getItem('email')
-     })
+    }
+    )
+    
+
+   
+    
     const lagos=/lagos/i
     const region =/island|lekki|vgc|ajah|ikoyi|bannana/i
     const nigeria=/nigeria/i
     const USA=/usa|canada|uk/i
     
-   useEffect(()=>{
+  const [registered,setRegistered]=useState(false)
+  
+  
+  useEffect(()=>{
     
        if(nigeria.test(locationParams.country)){
+        
+
           if(lagos.test(locationParams.state)){
               if(region.test(locationParams.town)){
                setFee(2500)
@@ -60,7 +71,7 @@ export default function Payment() {
        }
        }
        else if(USA.test(locationParams.country)){
-            setCurrency('USD')
+            
             if(order.length<4){
                 setFee(50)
             }
@@ -69,7 +80,7 @@ export default function Payment() {
             }
        }
        else{
-           setCurrency('USD')
+           
             if(order.length<4){
                 setFee(60)
             }
@@ -78,12 +89,7 @@ export default function Payment() {
             }
        }
    },[locationParams])
-
-
-
-
-   const [cost,setCost]=useState(priceUsd )
-  const [registered,setRegistered]=useState(false)
+  const [cost,setCost]=useState(priceUsd )
   const token=localStorage.getItem('inchToken')
    useEffect(()=>token?setRegistered(true):setRegistered(false),[token])
 
@@ -94,10 +100,9 @@ export default function Payment() {
      if(cost>0){
     paystack.newTransaction({
       amount: (cost+ fee)*100,
-      email: mail,
+      email: locationParams.email,
       key: testkey,
-      currency:currency,
-      name: localStorage.getItem('first_name'),
+      name: locationParams.first_name,
       onCancel: (e) => {
           window.alert("oh, dear u canceled")
           
@@ -112,15 +117,16 @@ export default function Payment() {
   };
  const payRef=React.useRef(null)
  const paidRef=React.useRef(null)
-
-  const manualOrder=()=>{
-    console.log(locationParams);
+ const manualOrder=()=>{
      if(cost>0) {payRef.current.click()}
-      TakeOrder(items,'MANUAL','',currency,locationParams)}
-    useEffect(()=>{
+      TakeOrder(items,'MANUAL','',currency,locationParams)
+  }
+ useEffect(()=>{
         currency==='USD'?setCost(priceUsd):setCost(priceNgn)
-    },[currency])
-    const cart = useSelector(state => state.cart);
+    },
+    [currency]
+    )
+ const cart = useSelector(state => state.cart);
     useEffect(()=>{
     }, [cart, cart])
 
@@ -168,24 +174,8 @@ export default function Payment() {
        const [transactionType,setTransactionType]=React.useState(1)
     
       const homeRef=React.useRef(null) 
-    const flags = document.querySelectorAll('.flag')
-    const transType =document.querySelectorAll('.platform')
-      const select=(e,selector) => {
-        selector.forEach(currency => {   
-            if (e === currency) {
-                currency.classList.add('focused-flag')
-                
-            }
-            else currency.classList.remove('focused-flag')
-
-        })
-        }
-        // useEffect(()=>{
-        //     for(const key in locationParams ){
-        //         console.log(key,locationParams[key])
-        //  }
-        // },[locationParams])
-        
+   
+    
       return (
         <Products >
             <div class='payment'>
@@ -301,17 +291,14 @@ export default function Payment() {
                     <div class={`payment_option ${payNone}`}>
                        
                         <p>Chose currency</p>
-                        <div><span class='flag' onClick={(e)=>{setCurrency('NGN')
-                                                          select(e.target,flags)
-                              }}><Nigeria /> NGN</span> <span class='flag' onClick={(e) => {
+                        <div><span class={currency==="NGN"?'focused-flag':'flag'} onClick={(e)=>setCurrency('NGN')}><Nigeria /> NGN</span> <span class={currency==="USD"?'focused-flag':'flag'} onClick={(e) => 
                                   setCurrency('USD')
-                                  select(e.target,flags)
-                              }} ><America /> USD</span></div> 
+                              } ><America /> USD</span></div> 
                               <p> Chose Payment method</p>
-                              <div><span class='platform' onClick={(e) => {setTransactionType(2)
-                                  select(e.target, transType)  
-                            }}><BriefCase /> Bank</span> <span class='platform' onClick={(e)=>{setTransactionType(1)
-                               select(e.target,transType)
+                              <div><span class={currency===2?'focused-flag':'platform'} onClick={(e) => {setTransactionType(2)
+                                   
+                            }}><BriefCase /> Bank</span> <span class={transactionType===1?'focused-flag':'platform'} onClick={(e)=>{setTransactionType(1)
+                               
                             }} ><Card /> Card</span></div>
                        <div style={{flexDirection:'column'}}>
                         <p>Coupon code</p>
@@ -324,8 +311,7 @@ export default function Payment() {
                         <button onClick={()=>{
                              if(agree)
                             {
-                                if(registered||locationParams){
-                                    console.log(transactionType)
+                                if(registered||locationParams.street){
                                     transactionType===1?initiateTransaction():manualOrder()
                                     }
                                 }
@@ -342,7 +328,7 @@ export default function Payment() {
               <p>You’re about to purchase these items</p>
               <div class='items'>{
                         items && items.map(item=>{
-                                    // let image=JSON.parse(item.product_image)
+                                    
                                     const image=item.product_image;
                                     
                                  return <div className="product">

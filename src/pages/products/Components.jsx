@@ -10,23 +10,27 @@ import {PrefferedCurrency} from '../../hooks/userContext'
 
 
 export default function Components({data ,page}) {
-    const history = useHistory()
     const dispatch = useDispatch()
     const cart = useSelector(state => state.cart);
     const [showAdd,setShowAdd]=useState(true)
     
 
     useEffect(()=>cart.map(item=>{
-        if(item===data)setShowAdd(false)
-        else {}
+        console.log(item.id==data.id,data,item);
+
+        if(item.id===data.id){
+            setShowAdd(false)
+        }
+        else setShowAdd(true)
     }),[cart])
+    // 
+    console.log(cart);
+    
    const image=JSON.parse(data.product_image)
-   console.log(image);
-    // useEffect(()=>{return {...data,unit:1}
+   
     data.unit=1;
     data.totalPrice=data.unit*data.price_usd
     data.selected=true
-    // },[])
     const imageLink=image[0]
      const [productLink,setLink]=useState('')
     console.log(imageLink);
@@ -55,7 +59,7 @@ export default function Components({data ,page}) {
                                         {
                                             showAdd && <div onClick={()=>{
                                                 dispatch(addToCart(data))
-                                                // console.log(image[0]);
+                                                
                                             }} className="addProduct">
                                               {page &&  <Add />}
                                             </div>
