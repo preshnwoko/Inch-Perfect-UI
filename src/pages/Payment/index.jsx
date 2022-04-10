@@ -102,6 +102,7 @@ export default function Payment() {
       amount: (cost+ fee)*100,
       email: locationParams.email,
       key: testkey,
+      currency:"NGN",
       name: locationParams.first_name,
       onCancel: (e) => {
           window.alert("oh, dear u canceled")
