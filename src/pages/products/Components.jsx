@@ -15,16 +15,22 @@ export default function Components({data ,page}) {
     const [showAdd,setShowAdd]=useState(true)
     
 
-    useEffect(()=>cart.map(item=>{
-        console.log(item.id==data.id,data,item);
+    useEffect(()=>{ 
+            const contains= cart.filter(item=>{
+               return item.id===data.id}
+            )
+            
+            if (contains[0]) {
+                setShowAdd(false)
+            }
+            else{
+                setShowAdd(true)
+            }
+            
 
-        if(item.id===data.id){
-            setShowAdd(false)
-        }
-        else setShowAdd(true)
-    }),[cart])
+    },[cart])
     // 
-    console.log(cart);
+    
     
    const image=JSON.parse(data.product_image)
    
@@ -33,7 +39,7 @@ export default function Components({data ,page}) {
     data.selected=true
     const imageLink=image[0]
      const [productLink,setLink]=useState('')
-    console.log(imageLink);
+
     useEffect(()=>{
         if(page)setLink('/product')
         else setLink('/admin/product')

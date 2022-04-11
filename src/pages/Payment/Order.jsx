@@ -32,7 +32,7 @@ export default function Order() {
                     "content-type": "application/json"
                 }
             });
-                localStorage.setItem('orderId',data.id)
+                
                 console.log(data,status)
                 onlySelected()
 

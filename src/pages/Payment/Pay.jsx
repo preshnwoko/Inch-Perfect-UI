@@ -24,7 +24,8 @@ const Pay = () => {
      React.useEffect(()=>
      [cart,cart])
      const [done,setDone]=useState(false)
-     const[orderId,setOrderId]=useState(localStorage.getItem('orderId'))
+    
+     
     return(
         <div className='pay containerr '>
         <div class='nav'><NavBar nav='navbar2' display='none' /></div>
@@ -64,7 +65,7 @@ const Pay = () => {
                        }
                    </div>
                 </div>
-                <div class='bottom'><span class='copy_right'>© Inch perfect, Inc. All rights reserved.</span> <Link class='a'>Terms and condition</Link> <Link class='a'>privacy</Link>  <span class='socials'><a href=''><YellowFacebook one='#EB5757' two="#A4FFFA" /></a><a href=''><YellowInstagram one='#EB5757' two="#A4FFFA" /></a><a href=''><YellowLinkedIn one='#EB5757' two="#A4FFFA"/></a><a href=''><YellowTweet one='#EB5757' two="#A4FFFA"/></a></span></div>
+                <div class='bottom'><span class='copy_right'>© Inch perfect, Inc. All rights reserved.</span> <Link class='a'>Terms and condition</Link> <Link class='a'>privacy</Link>  <span class='socials'><a href='https://www.instagram.com/inch__perfect/'><YellowInstagram one='#EB5757' two="#A4FFFA" /></a><a href='https://twitter.com/_inchperfect?s=21'><YellowTweet one='#EB5757' two="#A4FFFA"/></a></span></div>
                 <div className='overlay'>
                    
                 
@@ -80,7 +81,7 @@ const Pay = () => {
                             </div>
                             <div style={{marginTop:'24px'}}>
                                <label>Order number</label>
-                               <input readOnly={true} type='number' value={orderId} />
+                               <input style={{textAlign:'center'}} readOnly={true} type='number' value={localStorage.getItem('orderId')} />
                             </div>
                             <div style={{marginTop:'24px'}}>
                            <label>Bank details</label>
@@ -100,17 +101,14 @@ const Pay = () => {
                                 <h2>Awaiting Bank Transfer</h2>
                                 <p>Upload a screenshot of the transaction receipt</p>
                             </div>  
-                           <div style={{marginTop:'24px'}} onClick={()=>uploadRef.current.click()}>
+                           <div style={{marginTop:'24px'}}>
                               <SelectImage />
                            </div>
                            </span> }
                            
-                           <button onClick={()=>setDone(!done)}>Confirm payment</button>
+                           <button onClick={()=>window.location.replace('/products')}>Confirm payment</button>
                              
-                           <span>and</span>
-
-                           <label>Send screenshots to <a href='mailto:'>support@inchperfect.com</a></label>
-                           <input type='file' style={{display:'none'}} ref={uploadRef} />
+                          
 
                       </div>
             </div>

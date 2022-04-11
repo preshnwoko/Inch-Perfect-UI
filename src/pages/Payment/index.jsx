@@ -52,7 +52,6 @@ export default function Payment() {
     
   const [registered,setRegistered]=useState(false)
   
-  
   useEffect(()=>{
     
        if(nigeria.test(locationParams.country)){
@@ -116,11 +115,14 @@ export default function Payment() {
     });
 }
   };
+ const orderId= `${Math.floor(Math.random()*10)+1}${Math.floor(Math.random()*10)+1}${Math.floor(Math.random()*10)+1}${Math.floor(Math.random()*10)+1}${Math.floor(Math.random()*10)+1}`
+  
  const payRef=React.useRef(null)
  const paidRef=React.useRef(null)
  const manualOrder=()=>{
      if(cost>0) {payRef.current.click()}
-      TakeOrder(items,'MANUAL','',currency,locationParams)
+      TakeOrder(items,'MANUAL',orderId,currency,locationParams)
+      localStorage.setItem('orderId',orderId)
   }
  useEffect(()=>{
         currency==='USD'?setCost(priceUsd):setCost(priceNgn)
