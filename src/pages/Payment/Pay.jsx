@@ -91,6 +91,7 @@ const Pay = () => {
 
                               <label>Account number</label>
                               <p class='aza'>6086610017 <span onClick={()=>navigator.clipboard.writeText('6086610017')}><Copy /></span></p>
+                              <p style={{marginTop:'12px'}}class='aza'>6086610024 <span onClick={()=>navigator.clipboard.writeText('6086610024')}><Copy /></span> <span style={{fontSize:'12px'}}>USD*</span></p>
                               <label>Bank</label>
                               <p>FCMB</p>
                            </div></div>

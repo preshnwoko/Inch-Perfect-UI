@@ -62,7 +62,7 @@ export default function Landing(){
                     </div>
                 </div>
             </div>
-            <div className="about">
+            <div  className="about">
                 <div className="top">
                     <div className="arts">
                         <div className="img"> <div className="overlay"></div><img src={Image} alt='' /></div>
@@ -97,7 +97,7 @@ export default function Landing(){
                     </div>
                     </div>
                 </div>
-                <div className="about_us">
+                <div id='about' className="about_us">
                     <div className="logo">
                         <img src={logo} alt=''/>
                     </div>
