@@ -956,7 +956,7 @@ color: rgba(255,255,255,0.8);
             .socials{
                 width: 60%;
                 display: flex;
-                justify-content: space-around;
+                justify-content: center;
                 align-items: center;
                 margin: auto;
                 margin-top: 24px;
@@ -964,6 +964,7 @@ color: rgba(255,255,255,0.8);
                 svg{
                     padding: 2px;
                     border: 1px solid white;
+                    margin: 0 12px;
                 }
             }
             .links{

@@ -12,7 +12,7 @@ export default function Footer(){
             <div className="logo">
                 <Logo />
               <p>
-              Shop | style | comfort | elegance.
+               style | comfort | elegance.
               <p>
                   |Address- Lagos,Nigeria|
             </p> 
